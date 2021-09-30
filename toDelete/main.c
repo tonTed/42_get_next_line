@@ -8,8 +8,8 @@ int main()
 
 	if (fd1 == -1)
 		{puts("open() error"); return (1);}
-
-	ft_get_next_line(fd1);
+	
+	get_next_line(fd1);
 
 	if (close(fd1) == -1)
 		{puts("close() error"); return (1);}
