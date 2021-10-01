@@ -10,6 +10,7 @@ int main()
 		{puts("open() error"); return (1);}
 	
 	get_next_line(fd1);
+	// get_next_line(fd1);
 
 	if (close(fd1) == -1)
 		{puts("close() error"); return (1);}
