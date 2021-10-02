@@ -6,7 +6,7 @@
 /*   By: tblanco <tblanco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 01:34:54 by tblanco           #+#    #+#             */
-/*   Updated: 2021/10/02 17:44:14 by tblanco          ###   ########.fr       */
+/*   Updated: 2021/10/02 18:47:35 by tblanco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ char	*ft_prejoin(char *ret, char *buf, int *continue_, char **save)
 	if (*buf == '\0' || *(buf - 1) == '\n')
 	{
 		*continue_ = 0;	
-		// if (*buf)
-		// {
+		if (*buf)
+		{
 			tmp = *save;
 			// printf("BEFORE strdup > save: %s - buf: %s\n", *save, buf);
 			*save = ft_strdup(buf);
 			// printf("AFTER strdup > save: %s\n", *save);
 			// free(tmp);
-		// }
+		}
 	}
 	return (ret);
 }
