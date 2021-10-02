@@ -6,13 +6,13 @@
 /*   By: tblanco <tblanco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 01:34:54 by tblanco           #+#    #+#             */
-/*   Updated: 2021/10/01 16:48:06 by tblanco          ###   ########.fr       */
+/*   Updated: 2021/10/02 10:31:20 by tblanco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-#define BUFFER_SIZE 42
+// #define BUFFER_SIZE 42
 
 char	*ft_strjoin(char *ret, char **buf, int len_buf)
 {
@@ -78,7 +78,7 @@ char	*get_next_line(int fd)
 			free(ret);
 			return (NULL);
 		}
-		printf("char_read: %d, buffer: %s\n",char_read, buf);
+		// printf("char_read: %d, buffer: %s\n",char_read, buf);
 		buf[char_read] = '\0';
 		tmp = ret;
 		ret = ft_prejoin(ret, buf, &continue_, &save);
