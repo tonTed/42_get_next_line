@@ -6,7 +6,7 @@
 /*   By: tblanco <tblanco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 01:34:24 by tblanco           #+#    #+#             */
-/*   Updated: 2021/10/02 16:23:53 by tblanco          ###   ########.fr       */
+/*   Updated: 2021/10/04 09:30:11 by tblanco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ char	*ft_strdup(char *s)
 	char	*ret;
 	int		i;
 
-	// printf("STRDUP > %s\n", s);
 	ret = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
 	if (!ret)
 		return (NULL);
@@ -35,6 +34,5 @@ char	*ft_strdup(char *s)
 	while (*s)
 		ret[i++] = *s++;
 	ret[i] = '\0';
-	// printf("STRDUP > %s - i: %d\n", ret, i);
 	return (ret);
 }
