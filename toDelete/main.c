@@ -17,14 +17,18 @@ int main()
 	if (fd1 == -1)
 		{puts("open() error");return (1);}
 	
-	// char	*s;
-	// while ((s = get_next_line(fd1)))
-	// {
-	// 	printf("%s\n", s);
-	// }
+	char	*s;
+	while ((s = get_next_line(fd1)))
+	{
+		printf("%s\n", s);
+		free(s);
+		sleep(1);
+	}
+	free(s);
 
-	printf("%s\n", get_next_line(fd1));
-
+	// char *s = get_next_line(fd1);
+	// printf("%s\n", s);
+	// free(s);
 	
 	if (close(fd1) == -1)
 		{puts("close() error");return (1);}

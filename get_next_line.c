@@ -6,14 +6,14 @@
 /*   By: tblanco <tblanco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 01:34:54 by tblanco           #+#    #+#             */
-/*   Updated: 2021/10/04 11:01:23 by tblanco          ###   ########.fr       */
+/*   Updated: 2021/10/04 14:49:54 by tblanco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <unistd.h>
 
-#define BUFFER_SIZE 8
+// #define BUFFER_SIZE 11
 
 int		ft_charinstr(char *s, char c)
 {
@@ -69,9 +69,15 @@ char	*get_next_line(int fd)
 	char		*tmp;
 
 	ret = ft_strdup("");
-	while (ft_charinstr(ret, '\n') == 0)
+	char_read = BUFFER_SIZE;
+	while (ft_charinstr(ret, '\n') == 0 && char_read == BUFFER_SIZE)
 	{
 		char_read = read(fd, buffer, BUFFER_SIZE);
+		if (char_read == -1)
+		{
+			free(ret);
+			return (NULL);
+		}
 		buffer[char_read] = '\0';
 		tmp = ret;
 		ret = ft_strjoin(ret, buffer);
@@ -84,7 +90,10 @@ char	*get_next_line(int fd)
 		}
 	}
 	if (*ret == '\0')
+	{
+		// puts("RETURN (NULL)");
+		free(ret);
 		return (NULL);
-
+	}
 	return (ret);
 }
