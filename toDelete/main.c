@@ -8,8 +8,8 @@ int main()
 	// 	return 0;
 	// int fd1 = open(argv[1], O_RDONLY);
 
-	printf("%d\n", ft_charinstr("    \n", '\n'));
-	return (0);
+	// printf("%d\n", ft_charinstr("    \n", '\n'));
+	// return (0);
 
 	int fd1 = open("toDelete/42", O_RDONLY);
 
@@ -17,12 +17,13 @@ int main()
 	if (fd1 == -1)
 		{puts("open() error");return (1);}
 	
-	char	*s;
-	while ((s = get_next_line(fd1)))
-		{
-			printf("%s\n", s);
-			// sleep(1);
-		}
+	// char	*s;
+	// while ((s = get_next_line(fd1)))
+	// {
+	// 	printf("%s\n", s);
+	// }
+
+	printf("%s\n", get_next_line(fd1));
 
 	
 	if (close(fd1) == -1)
