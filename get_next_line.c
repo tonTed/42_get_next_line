@@ -6,41 +6,16 @@
 /*   By: tblanco <tblanco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 01:34:54 by tblanco           #+#    #+#             */
-/*   Updated: 2021/10/04 14:49:54 by tblanco          ###   ########.fr       */
+/*   Updated: 2021/10/04 16:08:21 by tblanco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <unistd.h>
 
-// #define BUFFER_SIZE 11
+// #define BUFFER_SIZE 42
 
-int		ft_charinstr(char *s, char c)
-{
-	while (*s)
-		if (*s++ == c)
-			return (1);
-	return (0);
-}
-
-char	*ft_strjoin(char *s1, char *s2)
-{
-	char	*ret;
-	int		i;
-	
-	ret = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
-	if (!ret)
-		return (NULL);
-	i = 0;
-	while (*s1)
-		ret[i++] = *s1++;
-	while (*s2)
-		ret[i++] = *s2++;
-	ret[i] = '\0';
-	return (ret);
-}
-
-char	*ft_strcut(char *s, char c)
+char	*ft_strcut(char *s, char c, char **save)
 {
 	char	*ret;
 	int		len;
@@ -58,6 +33,11 @@ char	*ft_strcut(char *s, char c)
 	while (len--)
 		ret[i++] = *s++;
 	ret[i] = '\0';
+	
+	/* save */
+	if (*save)
+		free(*save);
+	*save = ft_strdup(s);
 	return (ret);
 }
 
@@ -67,15 +47,31 @@ char	*get_next_line(int fd)
 	char		*ret;
 	int			char_read;
 	char		*tmp;
+	static char	*save = NULL;
 
-	ret = ft_strdup("");
+	if (save)
+		ret = ft_strdup(save);
+	else
+		ret = ft_strdup("");
+	save = ft_strdup("");
+
+	if (ft_charinstr(ret, '\n'))
+	{
+		tmp = ret;
+		ret = ft_strcut(ret, '\n', &save);
+		free(tmp);
+		// free(save);
+		return (ret);
+	}
 	char_read = BUFFER_SIZE;
 	while (ft_charinstr(ret, '\n') == 0 && char_read == BUFFER_SIZE)
 	{
+		// puts("READING...");
 		char_read = read(fd, buffer, BUFFER_SIZE);
 		if (char_read == -1)
 		{
 			free(ret);
+			// free(save);
 			return (NULL);
 		}
 		buffer[char_read] = '\0';
@@ -85,14 +81,14 @@ char	*get_next_line(int fd)
 		if (ft_charinstr(ret, '\n') != 0)
 		{
 			tmp = ret;
-			ret = ft_strcut(ret, '\n');
+			ret = ft_strcut(ret, '\n', &save);
 			free(tmp);
 		}
 	}
 	if (*ret == '\0')
 	{
-		// puts("RETURN (NULL)");
 		free(ret);
+		// free(save);
 		return (NULL);
 	}
 	return (ret);

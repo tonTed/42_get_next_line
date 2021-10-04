@@ -11,7 +11,7 @@ int main()
 	// printf("%d\n", ft_charinstr("    \n", '\n'));
 	// return (0);
 
-	int fd1 = open("toDelete/42", O_RDONLY);
+	int fd1 = open("gnlTester/files/41_with_nl", O_RDONLY);
 
 	
 	if (fd1 == -1)

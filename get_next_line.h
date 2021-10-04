@@ -6,13 +6,14 @@
 # include <sys/uio.h>
 # include <unistd.h>
 
-char	*get_next_line(int fd);
+/* utils libft */
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(char *s);
 int		ft_charinstr(char *s, char c);
+char	*ft_strjoin(char *s1, char *s2);
 
-
-
+/* get_next_line */
+char	*get_next_line(int fd);
 
 # include <stdio.h>
 #endif
