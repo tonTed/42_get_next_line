@@ -8,6 +8,9 @@ int main()
 	// 	return 0;
 	// int fd1 = open(argv[1], O_RDONLY);
 
+	printf("%d\n", ft_charinstr("    \n", '\n'));
+	return (0);
+
 	int fd1 = open("toDelete/42", O_RDONLY);
 
 	
