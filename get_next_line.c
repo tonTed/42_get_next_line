@@ -6,7 +6,7 @@
 /*   By: tblanco <tblanco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 01:34:54 by tblanco           #+#    #+#             */
-/*   Updated: 2021/10/04 16:08:21 by tblanco          ###   ########.fr       */
+/*   Updated: 2021/10/04 16:58:27 by tblanco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,28 +47,32 @@ char	*get_next_line(int fd)
 	char		*ret;
 	int			char_read;
 	char		*tmp;
-	static char	*save = NULL;
+	static char	*save;
 
 	if (save)
+	{
 		ret = ft_strdup(save);
+		free(save);
+		// save = NULL;
+	}
 	else
 		ret = ft_strdup("");
-	save = ft_strdup("");
+	save = NULL;
 
 	if (ft_charinstr(ret, '\n'))
 	{
 		tmp = ret;
 		ret = ft_strcut(ret, '\n', &save);
 		free(tmp);
-		// free(save);
 		return (ret);
 	}
+
 	char_read = BUFFER_SIZE;
+
 	while (ft_charinstr(ret, '\n') == 0 && char_read == BUFFER_SIZE)
 	{
-		// puts("READING...");
 		char_read = read(fd, buffer, BUFFER_SIZE);
-		if (char_read == -1)
+		if (char_read == -1 )
 		{
 			free(ret);
 			// free(save);
@@ -88,7 +92,6 @@ char	*get_next_line(int fd)
 	if (*ret == '\0')
 	{
 		free(ret);
-		// free(save);
 		return (NULL);
 	}
 	return (ret);
