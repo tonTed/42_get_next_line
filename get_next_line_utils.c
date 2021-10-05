@@ -6,7 +6,7 @@
 /*   By: tblanco <tblanco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 01:34:24 by tblanco           #+#    #+#             */
-/*   Updated: 2021/10/04 16:34:07 by tblanco          ###   ########.fr       */
+/*   Updated: 2021/10/04 20:02:41 by tblanco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*ft_strdup(char *s)
 	return (ret);
 }
 
-int		ft_charinstr(char *s, char c)
+int	ft_charinstr(char *s, char c)
 {
 	while (*s)
 		if (*s++ == c)
@@ -49,7 +49,7 @@ char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*ret;
 	int		i;
-	
+
 	ret = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 	if (!ret)
 		return (NULL);
