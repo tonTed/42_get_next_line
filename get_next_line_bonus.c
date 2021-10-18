@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tblanco <tblanco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 01:34:54 by tblanco           #+#    #+#             */
-/*   Updated: 2021/10/15 16:47:41 by tblanco          ###   ########.fr       */
+/*   Updated: 2021/10/15 16:41:57 by tblanco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_realloc(char *tofree, char *newchar)
 {
@@ -74,20 +74,20 @@ char	*get_next_line(int fd)
 	char		buffer[BUFFER_SIZE + 1];
 	char		*ret;
 	int			char_read;
-	static char	*save = NULL;
+	static char	*save[OPEN_MAX] = {NULL};
 
 	if (fd < 0)
 		return (NULL);
-	ret = ft_setting(&save, &char_read);
+	ret = ft_setting(&save[fd], &char_read);
 	while (ft_charinstr(ret, '\n') == 0 && char_read == BUFFER_SIZE)
 	{
 		char_read = read(fd, buffer, BUFFER_SIZE);
-		if (char_read == -1 )
+		if (char_read == -1)
 			return (ft_freenull(&ret));
 		buffer[char_read] = '\0';
 		ret = ft_realloc(ret, ft_strjoin(ret, buffer));
 		if (ft_charinstr(ret, '\n') != 0)
-			ret = ft_realloc(ret, ft_strcut(ret, '\n', &save));
+			ret = ft_realloc(ret, ft_strcut(ret, '\n', &save[fd]));
 	}
 	if (*ret == '\0')
 		return (ft_freenull(&ret));
