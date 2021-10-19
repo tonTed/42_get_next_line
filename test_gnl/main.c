@@ -6,7 +6,7 @@
 /*   By: tblanco <tblanco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 09:08:55 by tblanco           #+#    #+#             */
-/*   Updated: 2021/10/19 13:41:36 by tblanco          ###   ########.fr       */
+/*   Updated: 2021/10/19 13:43:41 by tblanco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,18 @@ int main(void)
 	s = get_next_line(fd[i]);
 	if (s == NULL || strcmp(ret, s) != 0)
 /* 7 */	{printf("-- [%d]: fd(%d) must be return %s >> %s\n",					i, fd[i], ret, s);	errors++;}; free(s);
-// 	ret = "\n";
-// 	s = get_next_line(fd[i]);
-// 	if (s == NULL || strcmp(ret, s) != 0)
-// /* 8 */	{printf("-- [%d]: fd(%d) must be return %s >> %s\n",					i, fd[i], ret, s);	errors++;}	i++; free(s);
+	ret = "\n";
+	s = get_next_line(fd[i]);
+	if (s == NULL || strcmp(ret, s) != 0)
+/* 8 */	{printf("-- [%d]: fd(%d) must be return %s >> %s\n",					i, fd[i], ret, s);	errors++;}	i++; free(s);
+	ret = "\n";
+	s = get_next_line(fd[i]);
+	if (s == NULL || strcmp(ret, s) != 0)
+/* 8 */	{printf("-- [%d]: fd(%d) must be return %s >> %s\n",					i, fd[i], ret, s);	errors++;}	i++; free(s);
+	ret = "\n";
+	s = get_next_line(fd[i]);
+	if (s == NULL || strcmp(ret, s) != 0)
+/* 8 */	{printf("-- [%d]: fd(%d) must be return %s >> %s\n",					i, fd[i], ret, s);	errors++;}	i++; free(s);
  
 
 
