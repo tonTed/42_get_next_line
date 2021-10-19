@@ -6,17 +6,11 @@
 /*   By: tblanco <tblanco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 01:34:54 by tblanco           #+#    #+#             */
-/*   Updated: 2021/10/19 18:17:55 by tblanco          ###   ########.fr       */
+/*   Updated: 2021/10/19 18:41:03 by tblanco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-// #define BUFFER_SIZE 1000000
-// #define malloc(...) NULL
-
-#include <stdio.h>
-// #define DEBUG puts("DEBUG")
 
 char	*ft_realloc(char *tofree, char *newchar)
 {
@@ -99,8 +93,8 @@ char	*get_next_line(int fd)
 		if (ft_charinstr(ret, '\n') != 0)
 			ret = ft_realloc(ret, ft_strcut(ret, '\n', &save));
 	}
-	if (ret == NULL || *ret == '\0')
-		return(ft_freenull(&ret, &buffer));
+	if (!ret || *ret == '\0')
+		return (ft_freenull(&ret, &buffer));
 	if (buffer)
 		free(buffer);
 	return (ret);
