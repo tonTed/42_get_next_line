@@ -6,7 +6,7 @@
 /*   By: tblanco <tblanco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 09:08:55 by tblanco           #+#    #+#             */
-/*   Updated: 2021/10/19 10:51:09 by tblanco          ###   ########.fr       */
+/*   Updated: 2021/10/19 13:41:36 by tblanco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,28 @@ int main(void)
 	ret = "0123456789";
 	s = get_next_line(fd[i]);
 	if (s == NULL || strcmp(ret, s) != 0)
-/* 4 */	{printf("-- [%d]: fd(%d) must be return %s >> %s\n",					i, fd[i], ret, s);	errors++;}	i++;
+/* 4 */	{printf("-- [%d]: fd(%d) must be return %s >> %s\n",					i, fd[i], ret, s);	errors++;}	i++; free(s);
 
+	fd[i] = open("10_nl", O_RDONLY);
+	ret = "0123456789\n";
+	s = get_next_line(fd[i]);
+	if (s == NULL || strcmp(ret, s) != 0)
+/* 5 */	{printf("-- [%d]: fd(%d) must be return %s >> %s\n",					i, fd[i], ret, s);	errors++;}; free(s);
+	ret = "0123456789";
+	s = get_next_line(fd[i]);
+	if (s != NULL)
+/* 6 */	{printf("-- [%d]: fd(%d) must be return %s >> %s\n",					i, fd[i], ret, s);	errors++;}	i++; free(s);
+
+	fd[i] = open("mix_", O_RDONLY);
+	ret = "0123456789\n";
+	s = get_next_line(fd[i]);
+	if (s == NULL || strcmp(ret, s) != 0)
+/* 7 */	{printf("-- [%d]: fd(%d) must be return %s >> %s\n",					i, fd[i], ret, s);	errors++;}; free(s);
+// 	ret = "\n";
+// 	s = get_next_line(fd[i]);
+// 	if (s == NULL || strcmp(ret, s) != 0)
+// /* 8 */	{printf("-- [%d]: fd(%d) must be return %s >> %s\n",					i, fd[i], ret, s);	errors++;}	i++; free(s);
+ 
 
 
 	printf("\nTOTAL ERRORS : %d/%d\n", errors, i);
