@@ -6,7 +6,7 @@
 /*   By: tblanco <tblanco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 01:34:54 by tblanco           #+#    #+#             */
-/*   Updated: 2021/10/15 16:41:57 by tblanco          ###   ########.fr       */
+/*   Updated: 2021/10/19 14:15:01 by tblanco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ char	*ft_realloc(char *tofree, char *newchar)
 	return (newchar);
 }
 
-void	*ft_freenull(char **ptr)
+void	*ft_freenull(char **ptr, char **ptr2)
 {
 	free(*ptr);
+	free(*ptr2);
 	return (NULL);
 }
 
@@ -48,11 +49,14 @@ char	*ft_strcut(char *s, char c, char **save)
 	return (ret);
 }
 
-char	*ft_setting(char **save, int *char_read)
+char	*ft_setting(char **save, int *char_read, char **buffer)
 {
 	char	*ret;
 
 	*char_read = BUFFER_SIZE;
+	*buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!*buffer)
+		return (NULL);
 	if (!*save)
 		ret = ft_strdup("");
 	else if (ft_charinstr(*save, '\n'))
@@ -71,25 +75,26 @@ char	*ft_setting(char **save, int *char_read)
 
 char	*get_next_line(int fd)
 {
-	char		buffer[BUFFER_SIZE + 1];
+	char		*buffer;
 	char		*ret;
 	int			char_read;
 	static char	*save[OPEN_MAX] = {NULL};
 
 	if (fd < 0)
 		return (NULL);
-	ret = ft_setting(&save[fd], &char_read);
+	ret = ft_setting(&save[fd], &char_read, &buffer);
 	while (ft_charinstr(ret, '\n') == 0 && char_read == BUFFER_SIZE)
 	{
 		char_read = read(fd, buffer, BUFFER_SIZE);
-		if (char_read == -1)
-			return (ft_freenull(&ret));
+		if (char_read == -1 )
+			return (ft_freenull(&ret, &buffer));
 		buffer[char_read] = '\0';
 		ret = ft_realloc(ret, ft_strjoin(ret, buffer));
 		if (ft_charinstr(ret, '\n') != 0)
 			ret = ft_realloc(ret, ft_strcut(ret, '\n', &save[fd]));
 	}
 	if (*ret == '\0')
-		return (ft_freenull(&ret));
+		return (ft_freenull(&ret, &buffer));
+	free(buffer);
 	return (ret);
 }
