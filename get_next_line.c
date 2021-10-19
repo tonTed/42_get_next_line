@@ -6,7 +6,7 @@
 /*   By: tblanco <tblanco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 01:34:54 by tblanco           #+#    #+#             */
-/*   Updated: 2021/10/04 20:03:08 by tblanco          ###   ########.fr       */
+/*   Updated: 2021/10/18 16:18:15 by tblanco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,10 @@ char	*get_next_line(int fd)
 	char		buffer[BUFFER_SIZE + 1];
 	char		*ret;
 	int			char_read;
-	static char	*save;
+	static char	*save = NULL;
 
+	if (fd < 0)
+		return (NULL);
 	ret = ft_setting(&save, &char_read);
 	while (ft_charinstr(ret, '\n') == 0 && char_read == BUFFER_SIZE)
 	{
