@@ -6,7 +6,7 @@
 /*   By: tblanco <tblanco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:38:37 by tblanco           #+#    #+#             */
-/*   Updated: 2021/10/27 20:18:02 by tblanco          ###   ########.fr       */
+/*   Updated: 2021/10/27 22:38:25 by tblanco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <fcntl.h>
 #include <string.h>
 #include "ft_color.h"
+#include <limits.h>
 
 int	ft_test_ft_strndup(int *test)
 {
@@ -233,10 +234,108 @@ int	ft_test_ft_charinstr(int *test)
 
 void	ft_test_gnl(void)
 {
-	char	*file;
+	int		errors = 0;
+	int		tests = 0;
+	int		fd;
+	char	*expected;
+	char	*returned;
+
 	
 	printf(BBLU "\n----- GET_NEXT_LINE:" reset);
+
+	//__1
+	tests++;
+	returned = get_next_line(-1);
+	expected = NULL;
+	if (returned != NULL || expected != NULL)
+		{printf(YEL "\n__1\texpected: %s\t - returned: %s" reset, expected, returned); errors++;}
+	//__2
+	tests++;
+	returned = get_next_line(OPEN_MAX + 1);
+	expected = NULL;
+	if (returned != NULL || expected != NULL)
+		{printf(YEL "\n__2\texpected: %s\t - returned: %s" reset, expected, returned); errors++;}
+	//__3__a
+	tests++;
+	fd = open("files/test", O_RDONLY);
+	returned = get_next_line(fd);
+	expected = "42 Quebec\n";
+	if (!returned || strcmp(returned, expected))
+		{printf(YEL "\n__3__a\texpected: %s\t - returned: %s" reset, expected, returned); errors++;}
+	free(returned);
+	//__3__b
+	tests++;
+	returned = get_next_line(fd);
+	expected = "Ubisoft\n";
+	if (!returned || strcmp(returned, expected))
+		{printf(YEL "\n__3__b\texpected: %s\t - returned: %s" reset, expected, returned); errors++;}
+	free(returned);
+	//__3__c
+	tests++;
+	returned = get_next_line(fd);
+	expected = "\n";
+	if (!returned || strcmp(returned, expected))
+		{printf(YEL "\n__3__c\texpected: %s\t - returned: %s" reset, expected, returned); errors++;}
+	free(returned);
+	//__3__d
+	tests++;
+	returned = get_next_line(fd);
+	expected = NULL;
+	if (returned != NULL || expected != NULL)
+		{printf(YEL "\n__3__d\texpected: %s\t - returned: %s" reset, expected, returned); errors++;}
+	//__4
+	tests++;
+	fd = open("files/empty", O_RDONLY);
+	returned = get_next_line(fd);
+	expected = NULL;
+	if (returned != NULL || expected != NULL)
+		{printf(YEL "\n__4\texpected: %s\t - returned: %s" reset, expected, returned); errors++;}
+	close(fd);
+	//__5__a
+	tests++;
+	fd = open("files/only_nl", O_RDONLY);
+	returned = get_next_line(fd);
+	expected = "\n";
+	if (!returned || strcmp(returned, expected))
+		{printf(YEL "\n__5__a\texpected: %s\t - returned: %s" reset, expected, returned); errors++;}
+	free(returned);
+	//__5__b
+	tests++;
+	returned = get_next_line(fd);
+	expected = "\n";
+	if (!returned || strcmp(returned, expected))
+		{printf(YEL "\n__5__b\texpected: %s\t - returned: %s" reset, expected, returned); errors++;}
+	free(returned);
+	//__5__c
+	tests++;
+	returned = get_next_line(fd);
+	expected = "\n";
+	if (!returned || strcmp(returned, expected))
+		{printf(YEL "\n__5__c\texpected: %s\t - returned: %s" reset, expected, returned); errors++;}
+	free(returned);
+	//__5__d
+	tests++;
+	returned = get_next_line(fd);
+	expected = "\n";
+	if (!returned || strcmp(returned, expected))
+		{printf(YEL "\n__5__d\texpected: %s\t - returned: %s" reset, expected, returned); errors++;}
+	free(returned);
+	//__5__e
+	tests++;
+	returned = get_next_line(fd);
+	expected = NULL;
+	if (returned != NULL || expected != NULL)
+		{printf(YEL "\n__5__e\texpected: %s\t - returned: %s" reset, expected, returned); errors++;}
+	free(returned);
+	close(fd);
+
+	puts("\n\n----- RESULT -----");
+	if (errors)
+		printf(BRED "TOTAL ERRORS: %d/%d\n" reset, errors, tests);
+	else
+		printf(BGRN "PASSED\n" reset);
 }
+
 int main()
 {
 	int	test = 0;

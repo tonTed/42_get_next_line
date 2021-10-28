@@ -6,7 +6,7 @@
 /*   By: tblanco <tblanco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:33:14 by tblanco           #+#    #+#             */
-/*   Updated: 2021/10/27 20:04:39 by tblanco          ###   ########.fr       */
+/*   Updated: 2021/10/27 22:28:25 by tblanco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define SEP '\n'
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1024
+#  define BUFFER_SIZE 10
 # endif
 
 
@@ -45,4 +45,5 @@ char	*ft_freejoin(char *s1, char *s2);
 char	*ft_strndup(char *s, size_t len);
 
 #include <stdio.h>
+#define DEBUG puts("DEBUG")
 #endif
