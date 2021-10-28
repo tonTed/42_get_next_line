@@ -6,11 +6,11 @@
 /*   By: tblanco <tblanco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:38:37 by tblanco           #+#    #+#             */
-/*   Updated: 2021/10/28 03:00:47 by tblanco          ###   ########.fr       */
+/*   Updated: 2021/10/28 09:19:22 by tblanco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../get_next_line.h"
 #include <fcntl.h>
 #include <string.h>
 #include "ft_color.h"

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tblanco <tblanco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:35:12 by tblanco           #+#    #+#             */
-/*   Updated: 2021/10/28 09:29:01 by tblanco          ###   ########.fr       */
+/*   Updated: 2021/10/28 09:27:47 by tblanco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	ft_getindex(int fd, char **save)
 {
@@ -39,27 +39,27 @@ int	ft_getindex(int fd, char **save)
 
 char	*get_next_line(int fd)
 {
-	static char	*save = NULL;
+	static char	*save[OPEN_MAX] = {NULL};
 	char		*ret;
 	int			index;
 	char		*tmp;
 
-	if (read(fd, save, 0) < 0)
+	if (fd < 0 || read(fd, save, 0) < 0)
 		return (NULL);
-	index = ft_getindex(fd, &save);
-	if (!save)
+	index = ft_getindex(fd, &save[fd]);
+	if (!save[fd])
 		return (NULL);
-	if (index == -1 || save[index + 1] == '\0')
+	if (index == -1 || save[fd][index + 1] == '\0')
 	{
-		ret = ft_freejoin(NULL, save);
-		free(save);
-		save = NULL;
+		ret = ft_freejoin(NULL, save[fd]);
+		free(save[fd]);
+		save[fd] = NULL;
 	}
 	else
 	{
-		ret = ft_strndup(save, index + 1);
-		tmp = save;
-		save = ft_freejoin(NULL, &save[index + 1]);
+		ret = ft_strndup(save[fd], index + 1);
+		tmp = save[fd];
+		save[fd] = ft_freejoin(NULL, &save[fd][index + 1]);
 		free(tmp);
 		tmp = NULL;
 	}
