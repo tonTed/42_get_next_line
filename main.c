@@ -6,7 +6,7 @@
 /*   By: tblanco <tblanco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:38:37 by tblanco           #+#    #+#             */
-/*   Updated: 2021/10/27 22:38:25 by tblanco          ###   ########.fr       */
+/*   Updated: 2021/10/27 22:51:20 by tblanco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,6 +326,22 @@ void	ft_test_gnl(void)
 	expected = NULL;
 	if (returned != NULL || expected != NULL)
 		{printf(YEL "\n__5__e\texpected: %s\t - returned: %s" reset, expected, returned); errors++;}
+	free(returned);
+	close(fd);
+	//__6__a
+	tests++;
+	fd = open("files/no_nl", O_RDONLY);
+	returned = get_next_line(fd);
+	expected = "42 Quebec";
+	if (!returned || strcmp(returned, expected))
+		{printf(YEL "\n__6__a\texpected: %s\t - returned: %s" reset, expected, returned); errors++;}
+	free(returned);
+	//__6__b
+	tests++;
+	returned = get_next_line(fd);
+	expected = NULL;
+	if (returned != NULL || expected != NULL)
+		{printf(YEL "\n__6__b\texpected: %s\t - returned: %s" reset, expected, returned); errors++;}
 	free(returned);
 	close(fd);
 
