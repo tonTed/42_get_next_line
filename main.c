@@ -6,7 +6,7 @@
 /*   By: tblanco <tblanco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:38:37 by tblanco           #+#    #+#             */
-/*   Updated: 2021/10/27 22:51:20 by tblanco          ###   ########.fr       */
+/*   Updated: 2021/10/28 03:00:47 by tblanco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,6 +342,16 @@ void	ft_test_gnl(void)
 	expected = NULL;
 	if (returned != NULL || expected != NULL)
 		{printf(YEL "\n__6__b\texpected: %s\t - returned: %s" reset, expected, returned); errors++;}
+	free(returned);
+	close(fd);
+	//__7
+	fd = open("main.c", O_RDONLY);
+	tests++;
+	while ((returned = get_next_line(fd)))
+	{
+		printf("%s", returned);
+		free(returned);
+	}
 	free(returned);
 	close(fd);
 
