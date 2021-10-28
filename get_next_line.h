@@ -6,7 +6,7 @@
 /*   By: tblanco <tblanco@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:33:14 by tblanco           #+#    #+#             */
-/*   Updated: 2021/10/27 22:52:56 by tblanco          ###   ########.fr       */
+/*   Updated: 2021/10/28 02:40:30 by tblanco          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define SEP '\n'
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 9
 # endif
 
 
